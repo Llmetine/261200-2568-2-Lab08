@@ -1,36 +1,42 @@
-public static void main(String[] a) {
+public static void main() {
 
-    Turtle bob = new Turtle();
-    Turtle john = new Turtle();
+    Turtle t1 = new Turtle(-150, 150);
+    t1.penColor("red");
+    t1.speed(5);
 
-    bob.speed(8);
-    john.speed(8);
-    int radius = 80;
+    Turtle t2 = new Turtle(150, 150);
+    t2.penColor("green");
+    t2.speed(5);
 
-    john.home();
-    john.penColor("red");
+    Turtle t3 = new Turtle(0, -100);
+    t3.penColor("blue");
+    t3.speed(5);
 
-    john.up();
-    john.right(90);
-    john.forward(radius);
-    john.left(90);
-    john.down();
+    Thread thread1 = new Thread(() -> drawStar(t1, 100));
+    Thread thread2 = new Thread(() -> drawStar(t2, 100));
+    Thread thread3 = new Thread(() -> drawStar(t3, 100));
 
-    for(int i = 0; i < 360; i++) {
-        john.forward(2 * Math.PI * radius / 360);
-        john.left(1);
-    }
+    thread1.start();
+    thread2.start();
+    thread3.start();
+}
 
-    bob.home();
-    bob.penColor("blue");
-
-    bob.up();
-    bob.forward(radius);
-    bob.right(162);
-    bob.down();
-
-    for(int i = 0; i < 5; i++) {
-        bob.forward(radius * 1.6);
-        bob.right(144);
+public static void drawStar(Turtle t, double size) {
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 3; j++) {
+            t.forward(50);
+            t.backward(50);
+            t.right(45);
+        }
+        t.left(135);
+        t.forward(50);
+        for (int j = 0; j < 3; j++) {
+            t.forward(30);
+            t.backward(30);
+            t.right(45);
+        }
+        t.left(135);
+        t.backward(50);
+        t.left(60);
     }
 }
